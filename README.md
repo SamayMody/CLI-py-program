@@ -8,3 +8,4 @@ A Python-based command-line task management system that allows users to manage t
 - Mark Task as Completed: Mark a task as completed.
 - Delete Task: Delete a task from the list.
 - Automatically Saves Tasks to file named as "tasks.txt" 
+- Data structure type = Lists.
