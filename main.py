@@ -28,7 +28,16 @@ class TaskManager:
         else:
             print('Invalid task index.')
 
-    def save_tasks_to_file(self, file_path):
+    def load_tasks_from_file(self, file_path):
+        try:
+            with open(file_path, 'r') as file:
+                lines = file.readlines()
+                self.tasks = [line.strip() for line in lines]
+        except FileNotFoundError:
+            print("File not found could not load tasks")
+
+
+    def save_tasks_to_file(self,file_path):
         with open(file_path, 'w') as file:  # using 'open' which is a built-in python function to open a file.
             for task in self.tasks:         #'w' means opening the file in writing mode so that automatically a new file is created or if already the file exists the existing content is erased.
                 file.write(task + '\n')     # adds the tasks in new line
@@ -43,7 +52,8 @@ def main():
         print('2. Display tasks')
         print('3. Mark a task as completed')
         print('4. Delete a task')
-        print('5. Exit')
+        print('5. Load tasks from a file')
+        print('6. Exit')
 
 
         choice = input('Enter your choice: ')
@@ -60,6 +70,9 @@ def main():
             task_index = int(input('Enter task index to delete: '))
             task_manager.delete_task(task_index)
         elif choice == '5':
+            file_path = input('Enter file path: ')
+            task_manager.load_tasks_from_file(file_path)
+        elif choice == '6':
             default_file_path = 'tasks.txt'
             task_manager.save_tasks_to_file(default_file_path)
             print(f'Tasks saved to {default_file_path}. Exiting.')
